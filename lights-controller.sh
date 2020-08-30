@@ -13,26 +13,26 @@
 #####################################################################################################################################
 
 ROOM_NAME="${3:-Living room}"
-BRIDGE_IP=$(curl https://discovery.meethue.com -s | jq '.[0].internalipaddress' -r)
+BRIDGE_IP=$(curl https://discovery.meethue.com -s | /usr/local/bin/jq '.[0].internalipaddress' -r)
 INPUT=$(echo "$1" | awk '{print tolower($0)}');
 USER=$2
 case $INPUT in
 "on")
-    for GROUP in $(curl "http://$BRIDGE_IP/api/$USER/groups" -s | jq ". | to_entries | .[] | select(.value.type==\"Room\")  | select(.value.name==\"$ROOM_NAME\").key" -r)
+    for GROUP in $(curl "http://$BRIDGE_IP/api/$USER/groups" -s | /usr/local/bin/jq ". | to_entries | .[] | select(.value.type==\"Room\")  | select(.value.name==\"$ROOM_NAME\").key" -r)
     do
         curl -s -X PUT -d '{"on":true,"bri":254}' "http://$BRIDGE_IP/api/$USER/groups/$GROUP/action" > /dev/null
         sleep .05
     done
     ;;
 "off")
-    for GROUP in $(curl "http://$BRIDGE_IP/api/$USER/groups" -s | jq '. | to_entries | .[] | select(.value.type=="Room").key' -r)
+    for GROUP in $(curl "http://$BRIDGE_IP/api/$USER/groups" -s | /usr/local/bin/jq '. | to_entries | .[] | select(.value.type=="Room").key' -r)
     do
         curl -s -X PUT -d '{"on":false}' "http://$BRIDGE_IP/api/$USER/groups/$GROUP/action" > /dev/null
         sleep .05
     done
     ;;
 "dim")
-    for GROUP in $(curl "http://$BRIDGE_IP/api/$USER/groups" -s | jq ". | to_entries | .[] | select(.value.type==\"Room\")  | select(.value.name==\"$ROOM_NAME\").key" -r)
+    for GROUP in $(curl "http://$BRIDGE_IP/api/$USER/groups" -s | /usr/local/bin/jq ". | to_entries | .[] | select(.value.type==\"Room\")  | select(.value.name==\"$ROOM_NAME\").key" -r)
     do
         curl -s -X PUT -d '{"on":true,"bri":64}' "http://$BRIDGE_IP/api/$USER/groups/$GROUP/action" > /dev/null
         sleep .05
