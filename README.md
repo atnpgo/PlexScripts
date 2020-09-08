@@ -3,7 +3,7 @@ A collection of scripts for use with Plex/Tautulli and a custom pre-roll generat
 
 ### lights-controller.sh
 
-Script used to control lights on a Phillips Hue system. Depends on `curl`. Recommended setup is adding this as a script to run in Tautuli.
+Script used to control lights on a Phillips Hue system. Depends on `curl`. Recommended setup is adding this as a script to run in **Tautuli**.
 
 To obtain the ID to use for the script, follow the [basic Hue API](https://developers.meethue.com/develop/get-started-2/) tutorial to generate one.
 
@@ -11,8 +11,8 @@ The first script will setup the lights for the main movie and the second for the
 
 ##### Script 1
 * Conditions:
-    * Media Type is movie
-    * Library Name is Movies (adjust this to match your own library name)
+    * `Media Type` is `movie`
+    * `Library Name` is `Movies` (adjust this to match your own library name)
 * Triggers and arguments:
     * Playback Start `off [ID]`
     * Playback Stop `on [ID]`
@@ -20,7 +20,7 @@ The first script will setup the lights for the main movie and the second for the
     * Playback Resume `off [ID]`
 ##### Script 2
 * Conditions:
-    * Media Type is clip
+    * `Media Type` is `clip`
 * Triggers and arguments:
     * Playback Start `dim [ID]`
 
@@ -31,6 +31,6 @@ pad then merge the videos together using the merges soundtracks as the new sound
 will fail with errors if there isn't enough videos to satisfy the length requirement. 
 
 ### Other Scripts
-* slide-to-vid.sh will transform a single image into a 15 second video slide. Depends on `ffmpeg`.
-* slide-merger.sh will transform a pair of images (question/answer) into a single 15 second video slide (10 seconds question, 5 second answer). Depends on `ffmpeg`.
-* bulk-merge.sh will take merge every other file in the current folder together using `slide-merger.sh`. i.e. The first and the second, the third and the fourth, the fifth and the sixth, etc. Depends on `ffmpeg`.
+* **slide-to-vid.sh** will transform a single image into a 15 second video slide. Depends on `ffmpeg`.
+* **slide-merger.sh** will transform a pair of images (question/answer) into a single 15 second video slide (10 seconds question, 5 second answer). Depends on `ffmpeg`.
+* **bulk-merge.sh** will take merge every other file in the current folder together using `slide-merger.sh`. i.e. The first and the second, the third and the fourth, the fifth and the sixth, etc. Depends on `ffmpeg`.
