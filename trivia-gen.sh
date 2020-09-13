@@ -23,7 +23,7 @@ for ((INDEX = ${#SHUFFLED_FILES[@]} - 1; INDEX > 0; INDEX--)); do
         SHUFFLED_FILES[RAND]=$TEMP
     fi
 done
-ffmpeg -hide_banner -loglevel error  -y -f lavfi -i anullsrc=r=44100:cl=mono -t "00:00:01.500" -q:a 9 -acodec libmp3lame pad.mp3
+ffmpeg -hide_banner -loglevel error  -y -f lavfi -i anullsrc=r=44100:cl=mono -t "00:00:01.525" -q:a 9 -acodec libmp3lame pad.mp3
 FILES=()
 for ((i = 0; i < TOTAL_LEN; i = i + LEN)); do
     FILE=${SHUFFLED_FILES[0]}
