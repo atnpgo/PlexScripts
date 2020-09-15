@@ -26,11 +26,20 @@ The first script will setup the lights for the main movie and the second for the
 
 ### trivia-gen.sh  
 Script used to transform a collection of videos and video slides into a random subset that will be at least as long as the requested length (defaults to 10 minutes) before the 
-transitions. Depends on [editly](https://github.com/mifi/editly) and `ffmpeg`/`ffprobe`. Works by separating the audio from the video, merging the audio tracks together with a silent 
-pad then merge the videos together using the merges soundtracks as the new soundtrack. Simply place the videos and video slides in the `slides/` subfolder before running. The script
-will fail with errors if there isn't enough videos to satisfy the length requirement. 
+transitions are applied. 
 
-### Other Scripts
-* **slide-to-vid.sh** will transform a single image into a 15 second video slide. Depends on `ffmpeg`.
-* **slide-merger.sh** will transform a pair of images (question/answer) into a single 15 second video slide (10 seconds question, 5 second answer). Depends on `ffmpeg`.
-* **bulk-merge.sh** will take merge every other file in the current folder together using `slide-merger.sh`. i.e. The first and the second, the third and the fourth, the fifth and the sixth, etc. Depends on `ffmpeg`.
+Depends on ffmpeg (`brew install ffmpeg`, `apt-get install ffmpeg`, `choco install ffmpeg`, etc.) and ffprobe-python (`pip install ffprobe-python`). 
+Works by building a list of random slides/videos until the length of the generated video is at least 600 seconds (pass a number as the first argument to use that number of seconds instead), does a first pass merging the 
+different sets of slides together with a fade, then does a second pass concatenating the videos generated in the first pass and the randomly chosen videos.
+Simply place the videos and image slides in the `slides/` subfolder before running, each image slide accounts for 15 seconds. 
+The script will fail with errors if there isn't enough videos to satisfy the length requirement.
+For Q&A style slides, the first slide should be named `{name}_q.{ext}` (question) and the last slide `{name}_a.{ext}` (answer) with an optional clue slide between them named `{name}_c.{ext}`
+Videos should be in mp4/h265 format and have a resolution of 1920x1080, concatenation will fail if there is a mismatch and this is the format generated for images. 
+You can convert them using Handbrake, ffmpeg, or several other solution.
+
+##### Tautulli Script
+* Conditions:
+    * `Media Type` is `movie`
+    * `Library Name` is `Movies` (adjust this to match your own library name)
+* Triggers and arguments:
+    * Playback Stop `nopythonpath`
